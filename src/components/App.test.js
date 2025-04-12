@@ -39,7 +39,7 @@ beforeEach(() => {
     })
   );
 
-  window.sessionStorage.setItem('accessToken', 'ABC123');
+  window.localStorage.setItem('accessToken', 'ABC123');
   mockCalendarResponse.mockReturnValue([
     { id: 'test-id', summary: 'test-name' },
   ]);
@@ -117,7 +117,7 @@ it('renders auth screen', () => {
     pathname: '/testpath',
   };
 
-  window.sessionStorage.removeItem('accessToken');
+  window.localStorage.removeItem('accessToken');
 
   renderApp();
 
@@ -126,7 +126,7 @@ it('renders auth screen', () => {
   ).toBeInTheDocument();
   expect(screen.getByTestId('AuthLink')).toHaveAttribute(
     'href',
-    'https://accounts.google.com/o/oauth2/auth?client_id=502172359025.apps.googleusercontent.com&redirect_uri=http%3A%2F%2Ftest.com&scope=https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fcalendar.readonly%20https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fcalendar.events.readonly&response_type=token'
+    'https://accounts.google.com/o/oauth2/auth?client_id=398759449450-vg8cjqnd5om8td4krs398f805k2em8uj.apps.googleusercontent.com&redirect_uri=https%3A%2F%2Fdoehyunbaek.github.io%2Fcalendar%2F&scope=https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fcalendar.readonly%20https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fcalendar.events.readonly&response_type=token'
   );
   expect(screen.getByAltText('Auth with Google')).toBeInTheDocument();
   expect(
@@ -135,24 +135,24 @@ it('renders auth screen', () => {
   expect(screen.getByText('Check it on GitHub')).toBeInTheDocument();
 });
 
-it('writes access token to sessionStorage and does redirect', () => {
+it('writes access token to localStorage and does redirect', () => {
   window.location = new URL(
     'https://www.example.com/hello#access_token=ABC123&foo=bar'
   );
 
   renderApp();
 
-  expect(window.sessionStorage.getItem('accessToken')).toEqual('ABC123');
+  expect(window.localStorage.getItem('accessToken')).toEqual('ABC123');
   expect(window.location).toBe('/');
 });
 
-it('delete access token from sessionStorage and does redirect when API returns non-200', async () => {
-  window.sessionStorage.setItem('accessToken', 'return-403');
+it('delete access token from localStorage and does redirect when API returns non-200', async () => {
+  window.localStorage.setItem('accessToken', 'return-403');
 
   renderApp();
 
   await waitFor(() =>
-    expect(window.sessionStorage.getItem('accessToken')).toEqual(null)
+    expect(window.localStorage.getItem('accessToken')).toEqual(null)
   );
 
   expect(window.location).toBe('/');
@@ -172,7 +172,7 @@ it('renders without UI elements when calendars are loading but viewState values 
       selectedRangeType: 'week',
     })
   );
-  window.sessionStorage.setItem('accessToken', 'eventsWithDelay');
+  window.localStorage.setItem('accessToken', 'eventsWithDelay');
 
   renderApp();
 
@@ -185,7 +185,7 @@ it('renders without UI elements when calendars are loading but viewState values 
 });
 
 it('renders "loading" when events are loading', async () => {
-  window.sessionStorage.setItem('accessToken', 'eventsWithDelay');
+  window.localStorage.setItem('accessToken', 'eventsWithDelay');
 
   renderApp();
 
@@ -312,7 +312,7 @@ it('requests events, display hours and sets localStorage when loaded', async () 
 });
 
 it('makes multiple event requests (when response contains nextPageToken)', async () => {
-  window.sessionStorage.setItem('accessToken', 'withNextPageToken');
+  window.localStorage.setItem('accessToken', 'withNextPageToken');
   renderApp();
 
   fireEvent.change(await screen.findByTestId('CalendarsList'), {

@@ -1,14 +1,15 @@
 import { Fragment } from 'react';
 import { encode } from 'qss';
 
-const googleClientId = '502172359025.apps.googleusercontent.com';
+const googleClientId = '398759449450-vg8cjqnd5om8td4krs398f805k2em8uj.apps.googleusercontent.com';
 const googleScope =
   'https://www.googleapis.com/auth/calendar.readonly https://www.googleapis.com/auth/calendar.events.readonly';
 
 const getGoogleAuthUrl = () => {
   const params = encode({
     client_id: googleClientId,
-    redirect_uri: process.env.NEXT_PUBLIC_REDIRECT_URI,
+    // redirect_uri: 'http://localhost/calendar/',
+    redirect_uri: 'https://doehyunbaek.github.io/calendar/',
     scope: googleScope,
     response_type: 'token',
   });
@@ -40,13 +41,6 @@ const App = () => (
       events, so that it can calculate the hours. This connection happens
       directly from your browser to the Google API. There are no server or
       services involved that might cache the data.
-    </p>
-    <p>
-      None of the data fetched from the Google Calendar API is saved elsewhere
-      but in your browser. After you close the browser window/tab all
-      authentication data is delete (technical detail: sessionStorage is used).
-      Thats why you need to reauthorize with Google the next time you visit the
-      page.
     </p>
     <p>This app only has read-only access to your calendar data.</p>
   </Fragment>

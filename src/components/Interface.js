@@ -8,6 +8,7 @@ import CustomRange from './features/CustomRange';
 import Hours from './features/Hours';
 import RangeDisplay from './features/RangeDisplay';
 import Events from './features/Events';
+import WeeklyActivityChart from './features/WeeklyActivityChart';
 import WeekStart from './features/WeekStart';
 import ShowDetailsButton from './features/ShowDetailsButton';
 import {
@@ -64,6 +65,7 @@ const Interface = () => {
             />
           )}
           {Boolean(hours) && isEventsOpen && <Events />}
+          <WeeklyActivityChart />
         </Fragment>
       )}
     </div>

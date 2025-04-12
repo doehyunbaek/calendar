@@ -13,19 +13,13 @@ import styles from './App.module.css';
 
 const App = () => {
   const hasToken = useSelector(selectHasToken);
-  const [isClient, setIsClient] = useState(false);
 
   useEffect(() => {
     const hashParams = decode(window.location?.hash?.slice(1) ?? '');
 
     if (hashParams.access_token) {
-      sessionStorage.setItem('accessToken', hashParams.access_token);
-      window.location = '/';
+      localStorage.setItem('accessToken', hashParams.access_token);
     }
-  }, []);
-
-  useEffect(() => {
-    setIsClient(true);
   }, []);
 
   return (
@@ -36,8 +30,8 @@ const App = () => {
             <h1 className={styles.headline}>
               Google Calendar Hours Calculator
             </h1>
-            {(!isClient || !hasToken) && <AuthScreen />}
-            {isClient && hasToken && <Interface />}
+            {!hasToken && <AuthScreen />}
+            {hasToken && <Interface />}
           </div>
           <footer className={styles.footer}>
             <p>

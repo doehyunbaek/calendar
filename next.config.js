@@ -8,7 +8,10 @@ const commit = require('child_process')
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  basePath: '/calendar',
+  assetPrefix: '/calendar/',
   output: 'export',
+  trailingSlash: true,
   eslint: {
     ignoreDuringBuilds: true,
   },

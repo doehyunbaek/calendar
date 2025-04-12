@@ -13,7 +13,7 @@ dayjs.extend(weekday);
 
 const getAccessToken = () => {
   try {
-    return sessionStorage.getItem('accessToken');
+    return localStorage.getItem('accessToken');
   } catch (e) {
     // don't handle
   }
