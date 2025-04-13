@@ -1,10 +1,10 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { decode } from 'qss';
 
-import { selectHasToken } from './stores/authentication';
+import { selectHasToken, setToken } from './stores/authentication';
 
 import AuthScreen from './AuthScreen';
 import Interface from './Interface';
@@ -12,15 +12,25 @@ import Interface from './Interface';
 import styles from './App.module.css';
 
 const App = () => {
+  const dispatch = useDispatch();
   const hasToken = useSelector(selectHasToken);
+  const [isHydrated, setIsHydrated] = useState(false);
 
   useEffect(() => {
-    const hashParams = decode(window.location?.hash?.slice(1) ?? '');
+    setIsHydrated(true);
 
+    const savedToken = localStorage.getItem('accessToken');
+    if (savedToken) {
+      dispatch(setToken(savedToken));
+    }
+
+    const hashParams = decode(window.location?.hash?.slice(1) ?? '');
     if (hashParams.access_token) {
       localStorage.setItem('accessToken', hashParams.access_token);
+      dispatch(setToken(hashParams.access_token));
+      window.location.hash = '';
     }
-  }, []);
+  }, [dispatch]);
 
   return (
     <div className={styles.appWrapper}>
@@ -30,8 +40,7 @@ const App = () => {
             <h1 className={styles.headline}>
               Google Calendar Hours Calculator
             </h1>
-            {!hasToken && <AuthScreen />}
-            {hasToken && <Interface />}
+            {isHydrated && (!hasToken ? <AuthScreen /> : <Interface />)}
           </div>
           <footer className={styles.footer}>
             <p>

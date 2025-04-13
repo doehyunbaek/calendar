@@ -8,8 +8,8 @@ const googleScope =
 const getGoogleAuthUrl = () => {
   const params = encode({
     client_id: googleClientId,
-    // redirect_uri: 'http://localhost/calendar/',
-    redirect_uri: 'https://doehyunbaek.github.io/calendar/',
+    redirect_uri: 'http://localhost:3000/calendar/',
+    // redirect_uri: 'https://doehyunbaek.github.io/calendar/',
     scope: googleScope,
     response_type: 'token',
   });
@@ -17,7 +17,7 @@ const getGoogleAuthUrl = () => {
   return `https://accounts.google.com/o/oauth2/auth?${params}`;
 };
 
-const App = () => (
+const AuthScreen = () => (
   <Fragment>
     <p>
       This web app lets you see how many hours you spend on a Google Calendar.
@@ -35,6 +35,7 @@ const App = () => (
         height="46"
       />
     </a>
+
     <h3>Privacy Policy</h3>
     <p>
       This app connects to the Google Calendar API to fetch your calendars and
@@ -46,4 +47,4 @@ const App = () => (
   </Fragment>
 );
 
-export default App;
+export default AuthScreen;
