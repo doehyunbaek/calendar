@@ -157,6 +157,10 @@ export const setSelectedCalendar =
   (dispatch, getState) => {
     dispatch(setSelectedCalendarId(calendarId));
     updateConfig({ selectedCalendarId: calendarId });
+    if (calendarId === 'total') {
+      dispatch(loadCalendarEvents({ calendarId }));
+      return;
+    }
     const calendarEvents = selectCalendarEvents(getState(), calendarId);
     if (!calendarEvents) {
       dispatch(loadCalendarEvents({ calendarId }));

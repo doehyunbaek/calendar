@@ -37,7 +37,9 @@ export const loadCalendars = () => async (dispatch, getState) => {
         ({ id }) => id === selectedCalendarId
       );
 
-      if (calendarExists) {
+      if (selectedCalendarId == 'total') {
+        dispatch(setSelectedCalendar({ calendarId: selectedCalendarId }));
+      } else if (calendarExists) {
         dispatch(setSelectedCalendar({ calendarId: selectedCalendarId }));
       } else {
         // dispatch null, so that it's removed from localStorage config

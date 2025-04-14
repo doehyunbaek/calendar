@@ -17,13 +17,16 @@ const CalendarsList = () => {
       data-testid="CalendarsList"
       className="form-select"
       onChange={(event) => {
-        dispatch(setSelectedCalendar({ calendarId: event.target.value }));
+        const value = event.target.value;
+        dispatch(setSelectedCalendar({ calendarId: value === 'total' ? 'total' : value }));
       }}
-      value={selectedCalendar ?? ''}
+      value={selectedCalendar ?? 'total'}
     >
-      {!selectedCalendar && (
-        <option key="default">Please select calendar</option>
-      )}
+      {
+        <option key="default" value="total">
+          Total
+        </option>
+      }
       {calendars.map(({ id, label }) => (
         <option value={id} key={id}>
           {label}
