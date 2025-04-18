@@ -28,7 +28,7 @@ const App = () => {
     if (hashParams.access_token) {
       localStorage.setItem('accessToken', hashParams.access_token);
       dispatch(setToken(hashParams.access_token));
-      window.history.replaceState(null, '', '/calendar');
+      window.history.replaceState(null, '', '/calendar/');
     }
   }, [dispatch]);
 
