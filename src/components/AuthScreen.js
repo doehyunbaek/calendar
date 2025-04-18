@@ -8,8 +8,8 @@ const googleScope =
 const getGoogleAuthUrl = () => {
   const params = encode({
     client_id: googleClientId,
-    // redirect_uri: 'http://localhost:3000/calendar/',
     redirect_uri: 'https://doehyunbaek.github.io/calendar/',
+    // redirect_uri: 'http://localhost:3000/calendar/',
     scope: googleScope,
     response_type: 'token',
   });
