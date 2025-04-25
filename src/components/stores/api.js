@@ -13,7 +13,7 @@ const fetchGoogle = async ({ url, accessToken, params }) => {
 
   if (response.status !== 200) {
     localStorage.removeItem('accessToken');
-    window.location = '/';
+    window.location = '/calendar/';
     return Promise.reject();
   }
   return response.json();
