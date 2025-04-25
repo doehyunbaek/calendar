@@ -9,7 +9,7 @@ dayjs.extend(isoWeek);
 
 export function classifyEventsByWeek(events) {
   const data = {};
-  const allowedCategories = ['eval', 'read', 'write', 'code'];
+  const allowedCategories = ['read', 'code', 'write'];
 
   events.forEach(({ start, end, summary }) => {
     const week = dayjs(start).isoWeek();
